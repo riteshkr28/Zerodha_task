@@ -1,0 +1,33 @@
+---
+
+- hosts: host_machine
+  become: true
+  tasks:
+    - name: Creating test_user
+      user:
+        name: testuser
+
+    - name: Setting timezone
+      timezone:
+        name: Asia/Kolkata
+
+    - name: Copying file from host to vagrant box
+      copy:
+        src: "~/random_file"
+        dest: "/home/testuser/random_file"
+
+    - name: Installing python
+      apt:
+        name: python
+        state: present
+
+    - name: Installing supervisord
+      apt:
+        name: supervisord
+        state: present
+
+    - name: Installing consul
+      apt:
+        name: consul
+        state: latest
+
